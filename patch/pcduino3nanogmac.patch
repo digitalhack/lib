@@ -1,0 +1,23 @@
+--- a/drivers/net/ethernet/allwinner/gmac/gmac_core.c
++++ b/drivers/net/ethernet/allwinner/gmac/gmac_core.c
+@@ -217,7 +217,9 @@
+ 			|| phy_interface == PHY_INTERFACE_MODE_GMII)
+ 		priv_clk_reg |= 0x00000002;
+ 
++#ifdef CONFIG_TARGET_PCDUINO3NANO
+         priv_clk_reg |= (0x00000003<<10);
++#endif
+ 
+ 	writel(priv_clk_reg, priv->gmac_clk_reg + GMAC_CLK_REG);
+ }
+@@ -1755,6 +1757,10 @@
+ module_init(gmac_init);
+ module_exit(gmac_remove);
+ 
++#ifdef CONFIG_TARGET_PCDUINO3NANO
++MODULE_DESCRIPTION("SUN6I 10/100/1000Mbps Ethernet device driver (pcDuino3Nano Mods)");
++#else
+ MODULE_DESCRIPTION("SUN6I 10/100/1000Mbps Ethernet device driver");
++#endif
+ MODULE_AUTHOR("Shuge <shugeLinux@gmail.com>");
+ MODULE_LICENSE("GPL v2");

@@ -76,6 +76,17 @@ if [[ $LINUXSOURCE == "linux-sunxi" ]] ; then
         		patch --batch -N -p1 < $SRC/lib/patch/bananagmac.patch
         	fi
     fi
+	if [[ $BOARD == "pcduino3nano" ]] ; then
+        	if [ "$(patch --dry-run -t -p1 < $SRC/lib/patch/pcduino3nanogmac.patch | grep previ)" == "" ]; then
+        		patch --batch -N -p1 < $SRC/lib/patch/pcduino3nanogmac.patch
+        	fi
+                if [ ! -f $SRC/output/u-boot/configs/Linksprite_pcDuino3nano_defconfig ] ; then
+                        cp $SRC/lib/config/Linksprite_pcDuino3nano_defconfig $SRC/output/u-boot/configs/Linksprite_pcDuino3nano_defconfig
+                fi
+                if [ ! -f $SRC/output/u-boot/arch/arm/dts/sun7i-a20-pcduino3nano.dts ] ; then
+                        cp $SRC/lib/config/sun7i-a20-pcduino3nano.dts $SRC/output/u-boot/arch/arm/dts/sun7i-a20-pcduino3nano.dts
+                fi
+    fi
     # compile sunxi tools
     compile_sunxi_tools
 fi
@@ -459,8 +470,8 @@ umount -l $DEST/output/sdcard/proc
 umount -l $DEST/output/sdcard/sys
 
 # kill process inside
-KILLPROC=$(ps -uax | pgrep ntpd |        tail -1); if [ -n "$KILLPROC" ]; then kill -9 $KILLPROC; fi  
-KILLPROC=$(ps -uax | pgrep dbus-daemon | tail -1); if [ -n "$KILLPROC" ]; then kill -9 $KILLPROC; fi  
+# KILLPROC=$(ps -uax | pgrep ntpd |        tail -1); if [ -n "$KILLPROC" ]; then kill -9 $KILLPROC; fi  
+# KILLPROC=$(ps -uax | pgrep dbus-daemon | tail -1); if [ -n "$KILLPROC" ]; then kill -9 $KILLPROC; fi  
 
 umount -l $DEST/output/sdcard/ 
 sleep 2
@@ -582,8 +593,8 @@ VERSION="${VERSION//$BRANCH/}"
 VERSION="${VERSION//__/_}"
 
 # kill process inside
-KILLPROC=$(ps -uax | pgrep ntpd |        tail -1); if [ -n "$KILLPROC" ]; then kill -9 $KILLPROC; fi  
-KILLPROC=$(ps -uax | pgrep dbus-daemon | tail -1); if [ -n "$KILLPROC" ]; then kill -9 $KILLPROC; fi  
+# KILLPROC=$(ps -uax | pgrep ntpd |        tail -1); if [ -n "$KILLPROC" ]; then kill -9 $KILLPROC; fi  
+# KILLPROC=$(ps -uax | pgrep dbus-daemon | tail -1); if [ -n "$KILLPROC" ]; then kill -9 $KILLPROC; fi  
 
 # same info outside the image
 cp $DEST/output/sdcard/root/readme.txt $DEST/output/
