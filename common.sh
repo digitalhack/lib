@@ -81,7 +81,7 @@ if [[ $LINUXSOURCE == "linux-sunxi" ]] ; then
         		patch --batch -N -p1 < $SRC/lib/patch/bananagmac.patch
         	fi
     fi
-	if [[ $BOARD == "pcduino3_nano" ]] ; then
+	if [[ $BOARD == "pcduino3-nano" ]] ; then
         	if [ "$(patch --dry-run -t -p1 < $SRC/lib/patch/linksprite_pcduino3_nano_gmac.patch | grep previ)" == "" ]; then
         		patch --batch -N -p1 < $SRC/lib/patch/linksprite_pcduino3_nano_gmac.patch
         	fi
