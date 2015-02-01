@@ -58,6 +58,11 @@ if [[ $LINUXSOURCE == "linux-sunxi" ]] ; then
 		echo "Reversing Banana patch"
 		patch --batch -t -p1 < $SRC/lib/patch/bananagmac.patch
 	fi
+        # reverse pcduino3nano gmac patch
+	if [ "$(cat drivers/net/ethernet/allwinnder/gmac/gmac_core.c | grep -i pcduino3nano)" != "" ]; then
+		echo "Reversing pcDuino3Nano patch"
+		patch --batch -t -p1 < $SRC/lib/patch/pcduino3nanogmac.patch
+	fi
 	# deb packaging patch
 	if [ "$(patch --dry-run -t -p1 < $SRC/lib/patch/packaging.patch | grep previ)" == "" ]; then
 		patch --batch -f -p1 < $SRC/lib/patch/packaging.patch
