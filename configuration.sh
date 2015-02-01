@@ -141,11 +141,11 @@ MODULES="hci_uart gpio_sunxi rfcomm hidp bonding spi_sun7i"
 ;;
 
 
-pcduino3nano)
+pcduino3_nano)
 #--------------------------------------------------------------------------------------------------------------------------------
 # pcduino3
 #--------------------------------------------------------------------------------------------------------------------------------
-BOOTCONFIG="Linksprite_pcDuino3nano_defconfig"
+BOOTCONFIG="Linksprite_pcDuino3_Nano_defconfig"
 MODULES="hci_uart gpio_sunxi rfcomm hidp bonding spi_sun7i"
 ;;
 

@@ -59,9 +59,9 @@ if [[ $LINUXSOURCE == "linux-sunxi" ]] ; then
 		patch --batch -t -p1 < $SRC/lib/patch/bananagmac.patch
 	fi
         # reverse pcduino3nano gmac patch
-	if [ "$(cat drivers/net/ethernet/allwinnder/gmac/gmac_core.c | grep -i pcduino3nano)" != "" ]; then
+	if [ "$(cat drivers/net/ethernet/allwinner/gmac/gmac_core.c | grep -i pcduino3nano)" != "" ]; then
 		echo "Reversing pcDuino3Nano patch"
-		patch --batch -t -p1 < $SRC/lib/patch/pcduino3nanogmac.patch
+		patch --batch -t -p1 < $SRC/lib/patch/linksprite_pcduino3_nano_gmac.patch
 	fi
 	# deb packaging patch
 	if [ "$(patch --dry-run -t -p1 < $SRC/lib/patch/packaging.patch | grep previ)" == "" ]; then
@@ -82,14 +82,14 @@ if [[ $LINUXSOURCE == "linux-sunxi" ]] ; then
         	fi
     fi
 	if [[ $BOARD == "pcduino3nano" ]] ; then
-        	if [ "$(patch --dry-run -t -p1 < $SRC/lib/patch/pcduino3nanogmac.patch | grep previ)" == "" ]; then
-        		patch --batch -N -p1 < $SRC/lib/patch/pcduino3nanogmac.patch
+        	if [ "$(patch --dry-run -t -p1 < $SRC/lib/patch/linksprite_pcduino3_nano_gmac.patch | grep previ)" == "" ]; then
+        		patch --batch -N -p1 < $SRC/lib/patch/linksprite_pcduino3_nano_gmac.patch
         	fi
-                if [ ! -f $SRC/output/u-boot/configs/Linksprite_pcDuino3nano_defconfig ] ; then
-                        cp $SRC/lib/config/Linksprite_pcDuino3nano_defconfig $SRC/output/u-boot/configs/Linksprite_pcDuino3nano_defconfig
+                if [ ! -f $SRC/output/u-boot/configs/Linksprite_pcDuino3_Nano_defconfig ] ; then
+                        cp $SRC/lib/config/Linksprite_pcDuino3_Nano_defconfig $SRC/output/u-boot/configs/Linksprite_pcDuino3_Nano_defconfig
                 fi
-                if [ ! -f $SRC/output/u-boot/arch/arm/dts/sun7i-a20-pcduino3nano.dts ] ; then
-                        cp $SRC/lib/config/sun7i-a20-pcduino3nano.dts $SRC/output/u-boot/arch/arm/dts/sun7i-a20-pcduino3nano.dts
+                if [ ! -f $SRC/output/u-boot/arch/arm/dts/sun7i-a20-pcduino3-nano.dts ] ; then
+                        cp $SRC/lib/config/sun7i-a20-pcduino3-nano.dts $SRC/output/u-boot/arch/arm/dts/sun7i-a20-pcduino3-nano.dts
                 fi
     fi
     # compile sunxi tools
