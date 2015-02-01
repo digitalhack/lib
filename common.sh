@@ -59,7 +59,7 @@ if [[ $LINUXSOURCE == "linux-sunxi" ]] ; then
 		patch --batch -t -p1 < $SRC/lib/patch/bananagmac.patch
 	fi
         # reverse pcduino3nano gmac patch
-	if [ "$(cat drivers/net/ethernet/allwinner/gmac/gmac_core.c | grep -i pcduino3nano)" != "" ]; then
+	if [ "$(cat drivers/net/ethernet/allwinner/gmac/gmac_core.c | grep -i 'pcduino3.nano')" != "" ]; then
 		echo "Reversing pcDuino3Nano patch"
 		patch --batch -t -p1 < $SRC/lib/patch/linksprite_pcduino3_nano_gmac.patch
 	fi
@@ -81,7 +81,7 @@ if [[ $LINUXSOURCE == "linux-sunxi" ]] ; then
         		patch --batch -N -p1 < $SRC/lib/patch/bananagmac.patch
         	fi
     fi
-	if [[ $BOARD == "pcduino3nano" ]] ; then
+	if [[ $BOARD == "pcduino3_nano" ]] ; then
         	if [ "$(patch --dry-run -t -p1 < $SRC/lib/patch/linksprite_pcduino3_nano_gmac.patch | grep previ)" == "" ]; then
         		patch --batch -N -p1 < $SRC/lib/patch/linksprite_pcduino3_nano_gmac.patch
         	fi
